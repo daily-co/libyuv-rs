@@ -29,11 +29,10 @@ fn get_lib_name(key: &str, long: bool) -> String {
 }
 
 fn main() -> std::io::Result<()> {
-    for name in ["YUV_LIBRARY_PATH"] {
-        println!("cargo:cargo:rerun-if-env-changed={}", name);
-        if let Ok(path) = env::var(name) {
-            println!("cargo:rerun-if-changed={}", path);
-        }
+    let name = "YUV_LIBRARY_PATH";
+    println!("cargo:cargo:rerun-if-env-changed={}", name);
+    if let Ok(path) = env::var(name) {
+        println!("cargo:rerun-if-changed={}", path);
     }
 
     let bindir = Path::new("./binaries");
