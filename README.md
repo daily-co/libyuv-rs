@@ -33,7 +33,7 @@ git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
 export PATH=/PATH/To/depot_tools:$PATH
 ```
 
-Then, clone libyuv repo:
+Then, clone the `libyuv` repo:
 
 ```
 mkdir libyuv
@@ -54,18 +54,22 @@ The following assumes the host machine is `x86_64`:
 make V=1 -f linux.mk
 ```
 
-To cross-compile to `aarch64`:
+To cross-compile to `aarch64` you first need to install the
+cross-compiler. Assuming you are in Debian (or Ubuntu):
 
 ```
-CC=aarch64-linux-gnu-gcc \
-  CXX=aarch64-linux-gnu-g++ \
-  AR=aarch64-linux-gnu-ar \
-  make V=1 -f linux.mk
+sudo apt install gcc-aarch64-linux-gnu g++-aarch64-linux-gnu binutils-aarch64-linux-gnu
+```
+
+Then, you can run:
+
+```
+CC=aarch64-linux-gnu-gcc CXX=aarch64-linux-gnu-g++ make V=1 -f linux.mk
 ```
 
 ### macOS (x86_64 and aarch64)
 
-The following assumes the host machine is `aarch64`:
+The following assumes the host machine is `aarch64` (e.g. Apple M1):
 
 ```
 make V=1 -f linux.mk
