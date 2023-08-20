@@ -81,7 +81,7 @@ To cross-compile to `x86_64`:
 CC="clang -arch x86_64" CXX="clang++ -arch x86_64" make V=1 -f linux.mk
 ```
 
-### License
+## License
 
 This is a fork of https://github.com/mycrl/libyuv-rs
 
