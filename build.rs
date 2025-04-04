@@ -8,9 +8,7 @@ fn split(path: &Path) -> (String, String) {
 
     (
         dir,
-        name.starts_with("lib")
-            .then(|| name.replacen("lib", "", 1))
-            .unwrap_or(name),
+        if name.starts_with("lib") { name.replacen("lib", "", 1) } else { name },
     )
 }
 
