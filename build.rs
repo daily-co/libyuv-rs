@@ -22,9 +22,9 @@ fn get_lib_name(key: &str, long: bool) -> String {
 
     let ext = if cfg!(windows) { "lib" } else { "a" };
     let flag = if cfg!(windows) { "" } else { "lib" };
-    let name = format!("{}-{}-{}", key, os, arch);
+    let name = format!("{key}-{os}-{arch}");
     if long {
-        format!("{}{}.{}", flag, name, ext)
+        format!("{flag}{name}.{ext}")
     } else {
         name
     }
@@ -32,9 +32,9 @@ fn get_lib_name(key: &str, long: bool) -> String {
 
 fn main() -> std::io::Result<()> {
     let name = "YUV_LIBRARY_PATH";
-    println!("cargo:cargo:rerun-if-env-changed={}", name);
+    println!("cargo:cargo:rerun-if-env-changed={name}");
     if let Ok(path) = env::var(name) {
-        println!("cargo:rerun-if-changed={}", path);
+        println!("cargo:rerun-if-changed={path}");
     }
 
     let bindir = Path::new("./binaries");
@@ -44,8 +44,8 @@ fn main() -> std::io::Result<()> {
         .map(|path| split(Path::new(&path)))
         .unwrap_or_else(|_| split(&absolute.join(get_lib_name("yuv", true))));
 
-    println!("cargo:rustc-link-lib={}", yuv_lib_name);
-    println!("cargo:rustc-link-search=all={}", yuv_lib_path);
+    println!("cargo:rustc-link-lib={yuv_lib_name}");
+    println!("cargo:rustc-link-search=all={yuv_lib_path}");
 
     Ok(())
 }
